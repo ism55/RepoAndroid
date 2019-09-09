@@ -25,11 +25,19 @@ public class ClassConnection extends AsyncTask<String,String,String> {
 
         try {
             httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.connect();
-            int code = httpURLConnection.getResponseCode();
-            //if(code==HttpURLConnection.HTTP_OK){
+            httpURLConnection.setConnectTimeout(500);
+            //httpURLConnection.connect();
+            int code=0;
+            try {
+                code = httpURLConnection.getResponseCode();
+            }
+            catch (Exception e){
 
-            //}
+            }
+
+            if(code!=200){
+                code=404;
+            }
             return Integer.toString(code);
 
 
