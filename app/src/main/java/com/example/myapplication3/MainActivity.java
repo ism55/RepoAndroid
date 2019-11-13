@@ -117,11 +117,18 @@ public class MainActivity extends AppCompatActivity {
 
                     while(scanner.hasNextLine()){
                         String line=scanner.nextLine();
+                        String[] arreglo;
                         if(!line.isEmpty()){
-                            String[] arreglo = line.split(" ");
-                            comparar(arreglo[0],arreglo[1],url);
-                        }
 
+                                arreglo = line.split(" ");
+                                if(arreglo.length>=2) {
+                                    comparar(arreglo[0], arreglo[1], url);
+                                }
+
+
+
+
+                        }
 
 
 
@@ -458,22 +465,20 @@ public class MainActivity extends AppCompatActivity {
 
             case "wait":
                 try {
-                    Float.parseFloat(s1);
+                    Thread.sleep(Math.round(Float.parseFloat(s1)));
                 }
                 catch (NumberFormatException e) {
                     break;
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
 
                 //Thread.sleep(Integer.parseInt(s1));
-                long antes = System.currentTimeMillis();
-                long despues = System.currentTimeMillis();
-                long resultado=0;
-                while(resultado < Integer.parseInt(s1)){
-                    despues = System.currentTimeMillis();
-                    resultado=despues-antes;
-                }
+
 
                 break;
+
             case "pr1":
                 try {
                     Float.parseFloat(s1);
@@ -916,6 +921,10 @@ public class MainActivity extends AppCompatActivity {
 
             default:
                 etiqueta.setText("Status: "+ "404");
+                if(s1.equals(null)){
+                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
         }
 
